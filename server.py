@@ -41,6 +41,9 @@ async def process_link(req: LinkRequest):
 
     dl_cmd = [
         "yt-dlp",
+        "--extractor-args", "youtube:player_client=android,tv_embedded,ios",
+        "--user-agent", "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36",
+        "--no-check-certificates",
         "-f", "bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[height<=720][ext=mp4]/best",
         "--merge-output-format", "mp4",
         "-o", video_path,
@@ -134,4 +137,4 @@ async def render_clip(req: RenderRequest):
     ], check=True)
 
     return FileResponse(out_path, media_type="video/mp4", filename=f"easyclip_{out_id}.mp4")
-  
+    
